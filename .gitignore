@@ -1,0 +1,57 @@
+# Arquivos de bytecode Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Ambiente virtual (TODO: adicionar outros nomes de ambiente virtual conforme necessário -> não é necessário se estiver usando `pipenv`)
+venv/
+ambiente/
+.venv/
+.env/
+
+# Variáveis ​​de ambiente Django
+.env
+.env.*
+
+# Migrações Django (arquivos temporários ou de backup)
+*/migrações/__pycache__/
+*/migrações/*.pyc
+
+# Base de dados
+db.sqlite3-diário
+
+# Arquivos estáticos e de mídia
+
+# static/admin é criado no servidor Apache quando criamos o link simbólico
+# (mas não é necessário localmente ou no GitHub)
+/estático/admin/
+
+# Arquivos de cache do Django
+*.registro
+*.pote
+*.mo
+*.pid
+*.cache
+*.cobertura
+*.cobertura.*
+
+# Configurações do editor e do IDE
+.vscode/
+.ideia/
+.projeto espião
+.projeto espião
+*.projeto-sublime
+*.espaço de trabalho sublime
+
+# Arquivos do sistema operacional
+.DS_Loja
+Polegares.db
+área de trabalho.ini
+
+# Pipenv e Poesia
+.versão-python
+
+# Relatórios de cobertura
+htmlcov/
+.cobertura
+.cobertura.*

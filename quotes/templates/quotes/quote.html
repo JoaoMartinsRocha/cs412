@@ -1,0 +1,12 @@
+{% extends 'quotes/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+    <p>{{quote}}</p>
+
+    <img src="{% static image %}" alt="image of tony stark" style="width:600px;height:600;">
+</main>
+
+{% endblock %}

@@ -2,22 +2,27 @@
 {% load static %}
 <html>
 <head>
-    <title>About page</title>
+    <title>Quotes app</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
 
     <nav>
         <ul>
-            <li><a href="{% url 'home_page' %}">Home</a></li>
+            <li><a href="{% url 'quote' %}">Quote of the Day</a></li>
+            <li><a href="{% url 'show_all_page' %}">Show All</a></li>
             <li><a href="{% url 'about_page' %}">About</a></li>
         </ul>
     </nav>
+
+    <h2>Tony Stark quote of the day!</h2>
+    
     
     {% block content %}    
     {% endblock %}
+    
 
-    <hr>
+    <!-- <hr>
 
-    <footer>The current time is {{time}}</footer>
+    <footer>The current time is {{time}}</footer> -->
 </html>

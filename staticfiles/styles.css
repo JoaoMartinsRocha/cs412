@@ -1,7 +1,25 @@
-html {
-    color: blue !important;
+p, h1,h2, h3 {
+    color: gray;
 }
 
-footer {
-    font-family: Arial;
+nav ul {
+    list-style: none;        /* Removes the bullets */
+    padding: 0;              
+    margin: 0;              
+    display: flex;           /* Displays items horizontally */
+    justify-content: space-around; /* Distributes items evenly across the nav */
+    
+}
+
+
+nav ul li a {
+    text-decoration: none;   /* Removes underline from links */
+    color: darkblue;     
+    font-weight: bold;       
+    padding: 10px 15px;      
+}
+
+img {
+    display: block;
+    margin-bottom: 20px;
 }
