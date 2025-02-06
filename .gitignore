@@ -1,57 +1,57 @@
-# Arquivos de bytecode Python
+# Python bytecode files
 *.pyc
 *.pyo
 __pycache__/
 
-# Ambiente virtual (TODO: adicionar outros nomes de ambiente virtual conforme necessário -> não é necessário se estiver usando `pipenv`)
+# Virtual environment (TODO: add other virtual environment names as needed -> not necessary if using `pipenv`)
 venv/
-ambiente/
+env/
 .venv/
 .env/
 
-# Variáveis ​​de ambiente Django
+# Django environment variables
 .env
 .env.*
 
-# Migrações Django (arquivos temporários ou de backup)
-*/migrações/__pycache__/
-*/migrações/*.pyc
+# Django migrations (temporary or backup files)
+*/migrations/__pycache__/
+*/migrations/*.pyc
 
-# Base de dados
-db.sqlite3-diário
+# Database
+db.sqlite3-journal
 
-# Arquivos estáticos e de mídia
+# Static and media files
 
-# static/admin é criado no servidor Apache quando criamos o link simbólico
-# (mas não é necessário localmente ou no GitHub)
-/estático/admin/
+# static/admin is created on the Apache-server when we create the sybmolic link 
+# (but is not necessary locally or on GitHub)
+/static/admin/
 
-# Arquivos de cache do Django
-*.registro
-*.pote
+# Django cache files
+*.log
+*.pot
 *.mo
 *.pid
 *.cache
-*.cobertura
-*.cobertura.*
+*.coverage
+*.coverage.*
 
-# Configurações do editor e do IDE
+# Editor and IDE settings
 .vscode/
-.ideia/
-.projeto espião
-.projeto espião
-*.projeto-sublime
-*.espaço de trabalho sublime
+.idea/
+.spyderproject
+.spyproject
+*.sublime-project
+*.sublime-workspace
 
-# Arquivos do sistema operacional
-.DS_Loja
-Polegares.db
-área de trabalho.ini
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
 
-# Pipenv e Poesia
-.versão-python
+# Pipenv and Poetry
+.python-version
 
-# Relatórios de cobertura
+# Coverage reports
 htmlcov/
-.cobertura
-.cobertura.*
+.coverage
+.coverage.*
