@@ -1,7 +1,9 @@
 # File: urls.py
 # Author: João Pedro Rocha (jprocha@bu.edu), 02/04/2025
-# Description: App level urls file that routes requests to correct view.py functions
+# Description: urls file for quotes app, recieves http requests and routes them to correct function within views.py. 
 
+
+from django.urls import path
 from django.conf import settings
 from . import views
 

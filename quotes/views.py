@@ -1,7 +1,7 @@
 # File: views.py
 # Author: João Pedro Rocha (jprocha@bu.edu), 02/04/2025
-# Description: Views file for quotes app, recieves http requests and responds with correct htl template. 
-# Also handles Logic for context variebales passed to templates.
+# Description: Views file for quotes app, recieves http requests and responds with correct html template. 
+# Also handles logic for context variables passed to templates.
  
 from django.shortcuts import render
 
