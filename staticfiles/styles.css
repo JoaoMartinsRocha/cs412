@@ -1,25 +1,30 @@
+/* 
+ File: styles.css
+ Author: João Pedro Rocha (jprocha@bu.edu), 02/04/2025
+ Description: css file containing all the stylying for the quotes application.
+ */
+
 html {
     background: rgb(55, 50, 50);
 }
 
 p, h1,h2, h3 {
-    color: gray;
-    text-align: center
+    color: red;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 nav ul {
     list-style: none;        /* Removes the bullets */
     padding: 0;              
     margin: 0;              
-    display: flex;         /*  Displays items horizontally */ 
-   
-    
+    display: flex;         /*  Displays items horizontally */  
 }
 
 
 nav ul li a {
     text-decoration: none;   /* Removes underline from links */
-    color: lightblue;     
+    color: red;     
     font-weight: bold;       
     padding: 10px 15px;      
 }
@@ -27,7 +32,6 @@ nav ul li a {
 img {
     display: block;
     margin-bottom: 20px;
-
 }
 
 main {
