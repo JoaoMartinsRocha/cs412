@@ -1,4 +1,7 @@
-from django.urls import path
+# File: urls.py
+# Author: João Pedro Rocha (jprocha@bu.edu), 02/04/2025
+# Description: App level urls file that routes requests to correct view.py functions
+
 from django.conf import settings
 from . import views
 

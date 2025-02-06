@@ -1,7 +1,11 @@
+# File: views.py
+# Author: João Pedro Rocha (jprocha@bu.edu), 02/04/2025
+# Description: Views file for quotes app, recieves http requests and responds with correct htl template. 
+# Also handles Logic for context variebales passed to templates.
+ 
 from django.shortcuts import render
 
-# Create your views here.
-# Create your views here.
+
 import time 
 import random
 
@@ -19,7 +23,7 @@ def quote(request):
     len_images = len(images)
 
     context = {
-        'quote' : quotes[random.randint(0,len_quotes - 1)],
+        'quote' : quotes[random.randint(0,len_quotes - 1)],  # Picks random index from array 
         'image' : images[random.randint(0,len_images - 1)],
     }
 
