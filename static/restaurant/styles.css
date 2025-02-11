@@ -1,0 +1,56 @@
+/* 
+ File: styles.css
+ Author: João Pedro Rocha (jprocha@bu.edu), 02/11/2025
+ Description: css file containing all the stylying for the restaurant application.
+ */
+
+ html {
+    background: rgb(55, 50, 50);
+}
+
+table, th, td {
+    border:1px solid beige;
+    color: beige;
+  }
+
+p, h1 {
+    color: beige;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h2, h3 {
+    color: beige;
+    text-align: left;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+nav ul {
+    list-style: none;        /* Removes the bullets */
+    padding: 0;              
+    margin: 0;              
+    display: flex;         /*  Displays items horizontally */  
+}
+
+
+nav ul li a {
+    text-decoration: none;   /* Removes underline from links */
+    color: beige;     
+    font-weight: bold;       
+    padding: 10px 15px;      
+}
+
+img {
+    display: block;
+    margin-bottom: 20px;
+}
+
+main{
+    display: grid;
+    place-items: center;     /* Centers both horizontally and vertically */         
+    text-align: left;
+}
+
+label {
+    color: lightgoldenrodyellow;
+}

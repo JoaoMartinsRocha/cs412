@@ -1,0 +1,39 @@
+<!-- 
+ File: confirmation.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 02/11/2025
+ Description: html file containg the the confirmation page for the restaurant application. Displays what the customer ordered, the total, and a random time 30-60 minutes in the future
+-->
+
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+
+    <h2>Order confirmation</h2>
+
+    <p>Thank you for your order!</p>
+
+    <p style="font-weight: bold;">Your order will be ready at: {{readytime}}</p>
+
+    <h2>Items</h2>
+    {% for regular in regulars %}
+        <p>{{regular}}</p>
+    {% endfor %}
+
+    <p>{{special}}</p>
+
+    <h2>Special Instructions</h2>
+    <p>{{special_instructions}}</p>
+
+    <p style="font-weight: bold;" >Total: ${{total}} </p>
+
+    <h2>Customer Information</h2>
+    <p>{{name}}</p>
+    <p>{{phone}}</p>
+    <p>{{email}}</p>
+    
+</main>
+
+{% endblock %}

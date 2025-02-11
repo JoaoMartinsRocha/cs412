@@ -1,0 +1,52 @@
+<!-- 
+ File: order.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 02/11/2025
+ Description: html file containg the the order page for the restaurant application. Contains the html form for the order.
+-->
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+
+
+<main>
+
+<form action="{% url 'confirmation' %}" method="POST">
+    {% csrf_token %}
+    
+    <h3>Select Your Items</h3>
+    <input type="checkbox" id="Burger" name="Burger" value="Burger">
+    <label for="Burger"> Burger $2</label><br>
+    <input type="checkbox" id="Cheese Burger" name="Cheese Burger" value="Cheese Burger">
+    <label for="Cheese Burger"> Cheese Burger $3</label><br>
+    <input type="checkbox" id="Fries" name="Fries" value="Fries">
+    <label for="Fries"> Fries $2</label><br>
+
+    <!-- Indent this -->
+    <input type="checkbox" id="FriesExtra" name="Add cheese" value="Add cheese" style="margin-left: 20px;">
+    <label for="FriesExtra"> Add cheese $1</label><br>
+
+
+    <h3>Today's Special</h3>
+    <input type="checkbox" id="special" name="special" value="{{ special }}">
+    <label for="special"> {{special}} $5</label><br>
+
+    <h3>Special Instructions</h3>
+    <textarea name="special_instructions" id="special-instructions"></textarea>
+
+    <h3>Customer Info</h3>
+    <label for="name"> Name:</label><br>
+    <input id="name" name="name" required> <br>
+    <label for="phone"> Phone:</label><br>
+    <input id="phone" name="phone" required> <br>
+    <label for="email"> Email:</label><br>
+    <input type="email" id="email" name="email" required> <br>
+    
+    <h3>Place your order!</h3>
+
+    <input type="submit">
+
+</form>
+</main>
+
+{% endblock %}

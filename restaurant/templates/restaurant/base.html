@@ -1,0 +1,27 @@
+<!-- 
+ File: base.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 02/11/2025
+ Description: html file containg the the base template for the restaurant application. Contains header and navigation for the page.
+-->
+{% load static %}
+<html>
+    <head>
+        <title>Restaurant</title>
+        <link rel="stylesheet" href="{% static 'restaurant/styles.css' %}">
+    </head>
+    <body>
+    
+        <nav>
+            <ul>
+                <li><a href="{% url 'main' %}">Main page</a></li>
+                <li><a href="{% url 'order' %}">Order</a></li>
+            </ul>
+        </nav>
+    <h1>Boston Burgers</h1>
+    {% block content %}
+    {% endblock %}
+    
+    
+
+    </body>
+</html>

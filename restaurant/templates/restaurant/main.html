@@ -1,0 +1,26 @@
+<!-- 
+ File: main.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 02/11/2025
+ Description: html file containg the the main page for the restaurant application. Displays an image of the restaurant, it's name, location, hours of operation.
+-->
+
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+
+    <h3>Welcome!</h3>
+    
+    <img src="{% static image %}" alt="resturant image" style="width:600px;height:600;">
+
+    <table>
+        <tr><th>Location: </th> <td>Commonwealth Avenue 222</td></tr>
+        <tr><th>Hours of Operation: </th><td>8AM-8PM everyday!</td></tr>
+
+    </table>
+    <!-- CHange this into a table -->
+</main>
+
+{% endblock %}
