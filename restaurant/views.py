@@ -1,7 +1,7 @@
 # File: views.py
 # Author: João Pedro Rocha (jprocha@bu.edu), 02/11/2025
 # Description: Views file for restaurant app, recieves http requests and responds with correct html template. 
-# Also handles logic for context variables passed to templates.
+# Also handles logic for context variables passed to templates. It adds up the total cost of an order, and also generates a random special of the day. 
  
 from django.shortcuts import render
 
@@ -33,17 +33,18 @@ def main(request):
     return render(request, template, context)
 
 def order(request):
+    ''' Respond to the URL 'order', delegate work to tempate.'''
     
     template = 'restaurant/order.html'
     len_special= len(daily_specials)
     context = {
-        'special' : daily_specials[random.randint(0,len_special - 1)],
+        'special' : daily_specials[random.randint(0,len_special - 1)], # Calculates random index from speical orders array 
     }
 
     return render(request, template, context)
 
 def confirmation(request):
-    ''' Respond to the URL 'confirmation', processes form and sends entries to template.'''
+    ''' Respond to the URL 'confirmation', processes form and sends values to template.'''
     
 
     context = {
