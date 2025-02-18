@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "quotes", # a3
     "formdata", # exmaple week 4
     "restaurant", # a4
+    "blog", # Example 5
+    "mini_fb", # a5 
 ]
 
 MIDDLEWARE = [
