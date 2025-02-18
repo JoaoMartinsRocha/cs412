@@ -1,3 +1,7 @@
+# File: urls.py
+# Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
+# Description: urls file for mini_fb app, recieves http requests and routes them to correct function within views.py. Also handles routing for specific profiles based on primary key  
+
 from django.urls import path
 from django.conf import settings
 from .views import ShowAllProfilesView, ShowProfilePageView
