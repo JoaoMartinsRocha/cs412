@@ -1,0 +1,24 @@
+<!-- templates/base.html -->
+<!-- blog/templates/blog/base.html -->
+{% load static %}
+<html>
+    <head>
+        <title>Mini fb</title>
+        <link rel="stylesheet" href="{% static 'mini_fb/styles.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1>Mini fb</h1>
+            <!-- <nav>
+                <ul>
+                    <li><a href="{% url 'show_all' %}">Show All</a></li>
+                    <li><a href="{% url 'random' %}">Random</a></li>
+                </ul>
+            </nav> -->
+        </header>
+    
+    {% block content %}
+    {% endblock %}    
+  
+    </body>
+</html>
