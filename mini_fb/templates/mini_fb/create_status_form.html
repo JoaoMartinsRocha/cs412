@@ -4,7 +4,7 @@
 {% block content %}
 <h1>Create a new Status Message for {{profile.first_name}}</h1>
 <!-- Display html form -->
-<form method="POST">
+<form action="{% url 'create_status' profile.pk %}" method="POST">
     {% csrf_token %}
     
     <table>
