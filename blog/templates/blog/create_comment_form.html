@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+{% block content %}
+<h1>Create a new Comment about {{article.title}}</h1>
+<!-- Display html form -->
+ <form method="POST">
+    {% csrf_token %}
+    
+    <table>
+    {{form.as_table}}
+    </table>
+
+    <input type="submit" name="submit" value="Submit">
+</form>
+
+{% endblock %}

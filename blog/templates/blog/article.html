@@ -20,7 +20,29 @@
         {% if article.image_url %}
 		<img src="{{article.image_url}}" alt="{{article.image_url}}">
         {% endif %}
+
+        <!-- Display Comments -->
+        <!-- {{article.get_all_comments}} -->
+
+    
     </article>
+    <div>
+        <h2>Comments</h2>
+        <h3>
+            <a href="{% url 'create_comment' article.pk %}">Create a comment</a>
+        </h3>
+        {% for comment in article.get_all_comments %}
+        <article>
+            <div>
+            <strong>by {{comment.author}} at {{comment.published}}</strong>
+            <p>
+            {{comment.text}}
+            </div>
+        </article>
+        
+
+        {% endfor %}
+    </div>
     
     
 </main>

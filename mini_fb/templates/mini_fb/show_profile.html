@@ -36,6 +36,18 @@
             </tr>
         </table>
     </article>
+
+    <article>
+        <h3>Status Messages</h3>
+
+        {% for message in profile.get_all_status_messages %}
+
+            <p>{{message.message}}</p>
+            <strong>Published at {{message.timestamp}}</strong>
+
+        {% endfor %}
+
+    </article>
     
     
 </main>
