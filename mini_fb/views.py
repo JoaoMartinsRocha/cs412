@@ -5,8 +5,10 @@
 
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from.models import Profile
+from django.views.generic import ListView, DetailView, CreateView
+from .models import Profile
+from .forms import CreateProfileForm, CreateStatusMessageForm
+from django.urls import reverse
 
 
 class ShowAllProfilesView(ListView):
@@ -22,3 +24,63 @@ class ShowProfilePageView(DetailView):
     model = Profile
     template_name = "mini_fb/show_profile.html"
     context_object_name = "profile"
+
+class CreateProfileView(CreateView):
+    '''A view to handle creation of a new Article.
+    (1) display the HTML form to user (GET)
+    (2) process the form submission and store the new Profile object (POST)
+    '''
+
+    form_class = CreateProfileForm
+    template_name = "mini_fb/create_profile_form.html"
+
+
+class CreateStatusMessageView(CreateView):
+    '''A view to handle creation of a new Article.
+    (1) display the HTML form to user (GET)
+    (2) process the form submission and store the new Profile object (POST)
+    '''
+
+    form_class = CreateStatusMessageForm
+    template_name = "mini_fb/create_status_form.html"
+
+    def get_success_url(self):
+        '''Return the URL to redirect to after successfully submitting form.'''
+        # return reverse('show_all')
+        ## note: this is not ideal, because we are redirected to the main page.
+        pk = self.kwargs['pk']
+        return reverse('show_profile', kwargs={'pk':pk})
+    
+    def get_context_data(self):
+        '''Return the dictionary of context variables for use in the template.'''
+
+        # calling the superclass method
+        context = super().get_context_data()
+
+        # find/add the article to the context data
+        # retrieve the PK from the URL pattern
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+
+        # add this article into the context dictionary:
+        context['profile'] = profile
+        return context
+
+    def form_valid(self, form):
+        '''This method handles the form submission and saves the 
+        new object to the Django database.
+        We need to add the foreign key (of the Article) to the Comment
+        object before saving it to the database.
+        '''
+        
+		# instrument our code to display form fields: 
+        print(f"CreateStatusMessageView.form_valid: form.cleaned_data={form.cleaned_data}")
+        
+        # retrieve the PK from the URL pattern
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+        # attach this article to the comment
+        form.instance.profile = profile # set the FK
+
+        # delegate the work to the superclass method form_valid:
+        return super().form_valid(form)

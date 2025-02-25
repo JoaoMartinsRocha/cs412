@@ -38,7 +38,11 @@
     </article>
 
     <article>
-        <h3>Status Messages</h3>
+        <h2>Status Messages</h2>
+
+        <h3>
+            <a href="{% url 'create_status' profile.pk %}">Create a status message</a>
+        </h3>
 
         {% for message in profile.get_all_status_messages %}
 

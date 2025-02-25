@@ -4,6 +4,7 @@
 
 
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -20,6 +21,10 @@ class Profile(models.Model):
     def __str__(self):
         '''Return a string representation of this Article object.'''
         return f'{self.first_name} {self.last_name}\'s profile'
+    
+    def get_absolute_url(self):
+        '''Return the URL to display one instance of this model.'''
+        return reverse('show_profile', kwargs={'pk': self.pk})
     
     def get_all_status_messages(self):
         '''Return all of the comments about this article.'''
