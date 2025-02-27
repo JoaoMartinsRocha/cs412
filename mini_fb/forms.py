@@ -1,3 +1,7 @@
+# File: forms.py
+# Author: João Pedro Rocha (jprocha@bu.edu), 02/25/2025
+# Description: forms file used to create the form classes used by the CreateView methods in the views.py file
+
 from django import forms
 from .models import Profile, StatusMessage
 

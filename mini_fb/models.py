@@ -1,6 +1,6 @@
 # File: models.py
 # Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
-# Description: models file used to create the profile model used in the mini_fb application 
+# Description: models file used to create the profile model and the Status Message model used in the mini_fb application 
 
 
 from django.db import models

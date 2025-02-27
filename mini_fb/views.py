@@ -1,7 +1,7 @@
 # File: views.py
 # Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
 # Description: Views file for mini_fb app, recieves http requests and responds with correct html template. 
-# Two views include either showing all the profiles or only one specific profile. 
+# Two views include either showing all the profiles or only one specific profile. Views also handle creating new prfolies and new status messages 
 
 
 from django.shortcuts import render
