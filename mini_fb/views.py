@@ -12,21 +12,21 @@ from django.urls import reverse
 
 
 class ShowAllProfilesView(ListView):
-
+    '''Display all prfiles'''
     model = Profile
     template_name = "mini_fb/show_all_profiles.html"
     context_object_name = "profiles"
 
 
 class ShowProfilePageView(DetailView):
-    '''Display a singe Article'''
+    '''Display a singe Profile'''
 
     model = Profile
     template_name = "mini_fb/show_profile.html"
     context_object_name = "profile"
 
 class CreateProfileView(CreateView):
-    '''A view to handle creation of a new Article.
+    '''A view to handle creation of a new Profile.
     (1) display the HTML form to user (GET)
     (2) process the form submission and store the new Profile object (POST)
     '''
@@ -36,9 +36,9 @@ class CreateProfileView(CreateView):
 
 
 class CreateStatusMessageView(CreateView):
-    '''A view to handle creation of a new Article.
+    '''A view to handle creation of a new Status Message.
     (1) display the HTML form to user (GET)
-    (2) process the form submission and store the new Profile object (POST)
+    (2) process the form submission and store the new Status Message object (POST)
     '''
 
     form_class = CreateStatusMessageForm
@@ -69,7 +69,7 @@ class CreateStatusMessageView(CreateView):
     def form_valid(self, form):
         '''This method handles the form submission and saves the 
         new object to the Django database.
-        We need to add the foreign key (of the Article) to the Comment
+        We need to add the foreign key (of the Profile) to the status message
         object before saving it to the database.
         '''
         
