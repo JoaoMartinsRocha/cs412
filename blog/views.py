@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
-from.models import Article
-from .forms import CreateArticleForm, CreateCommentForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from.models import Article, Comment
+from .forms import CreateArticleForm, CreateCommentForm, UpdateArticleForm
 import random
 from django.urls import reverse
 # Create your views here.
@@ -89,3 +89,30 @@ class CreateCommentView(CreateView):
 
         # delegate the work to the superclass method form_valid:
         return super().form_valid(form)
+
+class UpdateArticleView(UpdateView):
+
+    model = Article
+    form_class = UpdateArticleForm
+    template_name = "blog/update_article_form.html"
+
+
+class DeleteCommentView(DeleteView):
+    '''A view to delete a comment and remove it from the database.'''
+
+    template_name = "blog/delete_comment_form.html"
+    model = Comment
+    context_object_name = 'comment'
+
+    def get_success_url(self):
+        '''Return the URL to redirect to after successfully submitting form.'''
+        
+        ## Find pk of comment first
+        pk = self.kwargs['pk']
+        # Find  the comment object
+        comment = Comment.objects.get(pk=pk)
+
+        article = comment.article
+
+        return reverse('article', kwargs={'pk': article.pk})
+        

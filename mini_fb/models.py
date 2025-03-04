@@ -33,7 +33,7 @@ class Profile(models.Model):
     
 
 class StatusMessage(models.Model):
-    '''Encapsulate the idea of an Article by some author.'''
+    '''Encapsulates the idea of a Status message by some profile.'''
 
     # data attributes of the StatusMessage model:
 
@@ -41,8 +41,30 @@ class StatusMessage(models.Model):
     message = models.TextField(blank=False)
     timestamp = models.DateTimeField(auto_now=True)
     
-    
+    def get_images(self):
+        '''Return all of the comments about this article.'''
+        status_image_set = StatusImage.objects.filter(status_message=self)
+        return status_image_set  # Now you can loop through these and
     
     def __str__(self):
         '''Return a string representation of this Article object.'''
         return f'{self.message}'
+
+class Image(models.Model):
+    '''Encapsulates the idea of an Image related to some profile.'''
+
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE) # foreign key
+    image_file = models.ImageField(blank=True) # In the media directory
+
+    timestamp = models.DateTimeField(auto_now=True) # when it was created
+    caption = models.TextField(blank=True)
+
+class StatusImage(models.Model): # Models a reltionship set between Image and Status Message, Many to many
+
+    image = models.ForeignKey("Image", on_delete=models.CASCADE) # foreign key
+    status_message = models.ForeignKey("StatusMessage", on_delete=models.CASCADE) # foreign key
+
+
+
+
+

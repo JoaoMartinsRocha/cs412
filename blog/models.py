@@ -11,7 +11,8 @@ class Article(models.Model):
     author = models.TextField(blank=True)
     text = models.TextField(blank=True)
     published = models.DateTimeField(auto_now=True)
-    image_url = models.URLField(blank=True)
+    # image_url = models.URLField(blank=True) #url as string
+    image_file = models.ImageField(blank=True) # an actual image
     
     def __str__(self):
         '''Return a string representation of this Article object.'''

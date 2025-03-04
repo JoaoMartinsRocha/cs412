@@ -48,6 +48,12 @@
 
             <p>{{message.message}}</p>
             <strong>Published at {{message.timestamp}}</strong>
+            
+            <!-- Get images if they exist -->
+            {% for status_img in message.get_images %}
+                <img src='{{status_img.image.image_file.url}}' alt='{{status_img.image.image_file.url}}'>
+            {% endfor %}
+
 
         {% endfor %}
 
