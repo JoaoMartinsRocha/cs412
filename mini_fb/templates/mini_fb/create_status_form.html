@@ -1,7 +1,7 @@
 <!-- 
  File: create_status_form.html
  Author: João Pedro Rocha (jprocha@bu.edu), 02/25/2025
- Description: html file that displays a form to create a new status message for a specific profile.
+ Description: html file that displays a form to create a new status message for a specific profile, can also add images to the messages now.
 -->
 
 {% extends 'mini_fb/base.html' %}
@@ -10,11 +10,18 @@
 {% block content %}
 <h1>Create a new Status Message for {{profile.first_name}}</h1>
 <!-- Display html form -->
-<form action="{% url 'create_status' profile.pk %}" method="POST">
+<form action="{% url 'create_status' profile.pk %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     
     <table>
     {{form.as_table}}
+    <tr>
+        <td>Upload images: </td>
+        <td>
+            <input type="file" name = "files" multiple/>
+        </td>
+    </tr>
+
     </table>
 
     <input type="submit" name="submit" value="Submit">

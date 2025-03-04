@@ -1,12 +1,12 @@
 # File: views.py
 # Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
 # Description: Views file for mini_fb app, recieves http requests and responds with correct html template. 
-# Two views include either showing all the profiles or only one specific profile. Views also handle creating new prfolies and new status messages 
+# Two views include either showing all the profiles or only one specific profile. Views also handle creating new prfolies and new status messages, and registering any related images 
 
 
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
-from .models import Profile
+from .models import *
 from .forms import CreateProfileForm, CreateStatusMessageForm
 from django.urls import reverse
 
@@ -71,6 +71,7 @@ class CreateStatusMessageView(CreateView):
         new object to the Django database.
         We need to add the foreign key (of the Profile) to the status message
         object before saving it to the database.
+        We also have to register any new images if they were uploaded
         '''
         
 		# instrument our code to display form fields: 
@@ -81,6 +82,29 @@ class CreateStatusMessageView(CreateView):
         profile = Profile.objects.get(pk=pk)
         # attach this article to the comment
         form.instance.profile = profile # set the FK
+
+        # save the status message to database
+        sm = form.save() # Note that the variable sm is a reference to the new StatusMessage object.
+
+        # read the file from the form:
+        files = self.request.FILES.getlist('files')
+        print(files)
+
+        # For each image, create a new image and matching status image object
+        for file in files:
+
+            new_image = Image()
+            print(new_image)
+            new_image.profile = profile  # Attach profile foriegn key to image
+            new_image.image_file = file # Attach iage file to image
+            new_image.save() # Save the image
+
+            # register relationship between image and status messsage by creating a status image
+            new_status_image = StatusImage()
+            new_status_image.image = new_image 
+            new_status_image.status_message = sm 
+            new_status_image.save()
+            
 
         # delegate the work to the superclass method form_valid:
         return super().form_valid(form)

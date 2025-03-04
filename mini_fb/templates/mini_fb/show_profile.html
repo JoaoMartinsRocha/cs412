@@ -1,7 +1,7 @@
 <!-- 
  File: show_profile.html
  Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
- Description: html file containg the the template for showing a single profile for the mini_fb application.
+ Description: html file containg the the template for showing a single profile for the mini_fb application. Also hangles displaying all status messages relating to that profile, and all images relating to that status message
 -->
 
 {% extends 'mini_fb/base.html' %}
@@ -44,18 +44,26 @@
             <a href="{% url 'create_status' profile.pk %}">Create a status message</a>
         </h3>
 
+        <table>
         {% for message in profile.get_all_status_messages %}
 
-            <p>{{message.message}}</p>
-            <strong>Published at {{message.timestamp}}</strong>
-            
-            <!-- Get images if they exist -->
-            {% for status_img in message.get_images %}
-                <img src='{{status_img.image.image_file.url}}' alt='{{status_img.image.image_file.url}}'>
-            {% endfor %}
+            <tr>
+                <td>
+                <strong>{{message.message}}</strong>
+                <p>Published at {{message.timestamp}}</p>
+                
+                <br>
 
+                <!-- Get images if they exist -->
+                {% for status_img in message.get_images %}
+                    <img src='{{status_img.image.image_file.url}}' alt='{{status_img.image.image_file.url}}' height="100" width="150" style="display: inline;">
+                {% endfor %}
+                </td>
+            </tr>
 
         {% endfor %}
+        </table>
+        
 
     </article>
     
