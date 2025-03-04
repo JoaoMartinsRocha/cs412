@@ -1,7 +1,7 @@
 <!-- 
  File: show_profile.html
  Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
- Description: html file containg the the template for showing a single profile for the mini_fb application. Also hangles displaying all status messages relating to that profile, and all images relating to that status message
+ Description: html file containg the the template for showing a single profile for the mini_fb application. Also handles displaying all status messages relating to that profile, and all images relating to that status message
 -->
 
 {% extends 'mini_fb/base.html' %}
@@ -34,7 +34,9 @@
                 
                 
             </tr>
+
         </table>
+        <h4> <a href="{% url 'update_profile' profile.pk %}">Update this profile</a></h4>
     </article>
 
     <article>

@@ -2,12 +2,13 @@
 # Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
 # Description: Views file for mini_fb app, recieves http requests and responds with correct html template. 
 # Two views include either showing all the profiles or only one specific profile. Views also handle creating new prfolies and new status messages, and registering any related images 
+# They are also capable of updating a profile's info
 
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import *
-from .forms import CreateProfileForm, CreateStatusMessageForm
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
 
 
@@ -108,3 +109,10 @@ class CreateStatusMessageView(CreateView):
 
         # delegate the work to the superclass method form_valid:
         return super().form_valid(form)
+
+class UpdateProfileView(UpdateView):
+    '''View Handles updating a profile, responds to GET and POST requests differently'''
+
+    model = Profile
+    form_class = UpdateProfileForm 
+    template_name = "mini_fb/update_profile_form.html"

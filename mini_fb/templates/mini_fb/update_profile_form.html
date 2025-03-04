@@ -1,0 +1,31 @@
+<!-- 
+ File: update_profile_form.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/03/2025
+ Description: html file containing the the template for the form that updates a profile.
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+{% block content %}
+<h1>Update this Profile</h1>
+<!-- Display html form -->
+ <form action="{% url 'update_profile' profile.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <table>
+    {{form.as_table}}
+    </table>
+
+    <input type="submit" name="submit" value="Update">
+    
+</form>
+
+<!-- Cancel button -->
+<form action="{% url 'show_profile' profile.pk %}" method="GET">
+    <input type="submit" value="Cancel">
+</form>
+
+{% endblock %}
