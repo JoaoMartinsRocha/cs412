@@ -2,13 +2,13 @@
 # Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
 # Description: Views file for mini_fb app, recieves http requests and responds with correct html template. 
 # Two views include either showing all the profiles or only one specific profile. Views also handle creating new prfolies and new status messages, and registering any related images 
-# They are also capable of updating a profile's info
+# They are also capable of updating/deleting a profile's or a status message
 
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import *
-from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm
 from django.urls import reverse
 
 
@@ -116,3 +116,48 @@ class UpdateProfileView(UpdateView):
     model = Profile
     form_class = UpdateProfileForm 
     template_name = "mini_fb/update_profile_form.html"
+
+class DeleteStatusMessageView(DeleteView):
+
+
+    model = StatusMessage
+    template_name = "mini_fb/delete_status_form.html"
+    context_object_name = 'status_message'
+
+    def get_success_url(self):
+        '''Return the URL to redirect to after successfully submitting form.'''
+        
+        ## Find pk of comment first
+        pk = self.kwargs['pk']
+        # Find  the comment object
+        status_message = StatusMessage.objects.get(pk=pk)
+
+        profile = status_message.profile
+
+        return reverse('show_profile', kwargs={'pk': profile.pk})
+    
+
+class UpdateStatusMessageView(UpdateView):
+    '''View Handles updating a profile, responds to GET and POST requests differently'''
+
+    model = StatusMessage
+    form_class = UpdateStatusMessageForm 
+    template_name = "mini_fb/update_status_form.html"
+
+    def get_success_url(self):
+        '''Return the URL to redirect to after successfully submitting form.'''
+        
+        ## Find pk of comment first
+        pk = self.kwargs['pk']
+        # Find  the comment object
+        status_message = StatusMessage.objects.get(pk=pk)
+
+        profile = status_message.profile
+
+        return reverse('show_profile', kwargs={'pk': profile.pk})
+    
+    
+
+    
+    
+

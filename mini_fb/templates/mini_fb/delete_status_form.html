@@ -1,0 +1,29 @@
+<!-- 
+ File: delete_status_form.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/03/2025
+ Description: html file containing the the template for the form that deletes status messages.
+-->
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<!-- templates/blog/delete_comment.html -->
+
+<h3>Are you sure you want to delete this status message?</h3>
+
+<p>{{status_message}} </p>
+<p> Published at: {{status_message.timestamp}} </p>
+
+<p>
+
+</p>
+
+<form method='POST'>
+    {% csrf_token %}
+    <input type='submit' value="Yes" style="display: inline;">
+</form>
+
+<form action="{% url 'show_profile' status_message.profile.pk %}" method="GET">
+    <input type="submit" value="No" style="display: inline;">
+</form>
+
+{% endblock %}

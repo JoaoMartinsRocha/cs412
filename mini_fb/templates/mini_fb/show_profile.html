@@ -2,6 +2,7 @@
  File: show_profile.html
  Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
  Description: html file containg the the template for showing a single profile for the mini_fb application. Also handles displaying all status messages relating to that profile, and all images relating to that status message
+ This for also contains links to delete/update status essages for this profile, and to update the profile
 -->
 
 {% extends 'mini_fb/base.html' %}
@@ -60,6 +61,11 @@
                 {% for status_img in message.get_images %}
                     <img src='{{status_img.image.image_file.url}}' alt='{{status_img.image.image_file.url}}' height="100" width="150" style="display: inline;">
                 {% endfor %}
+                <br>
+                <a href="{% url 'update_status' message.pk %}">Update message</a>
+                <br>
+                <a href="{% url 'delete_status' message.pk %}">Delete message</a>
+
                 </td>
             </tr>
 
