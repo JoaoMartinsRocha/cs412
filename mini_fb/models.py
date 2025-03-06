@@ -28,8 +28,8 @@ class Profile(models.Model):
     
     def get_all_status_messages(self):
         '''Return all of the comments about this article.'''
-        comments = StatusMessage.objects.filter(profile=self)
-        return comments
+        messages = StatusMessage.objects.filter(profile=self)
+        return messages
     
 
 class StatusMessage(models.Model):
