@@ -28,10 +28,17 @@ class ShowProfilePageView(DetailView):
     context_object_name = "profile"
 
 class ShowFriendsSuggestionsView(DetailView):
-    '''Display a singe Profile'''
+    '''View for showing friend suggestions page'''
 
     model = Profile
     template_name = "mini_fb/friend_suggestions.html"
+    context_object_name = "profile"
+
+class ShowNewsFeedView(DetailView):
+    '''View for showing news feed'''
+
+    model = Profile
+    template_name = "mini_fb/news_feed.html"
     context_object_name = "profile"
 
 class CreateProfileView(CreateView):

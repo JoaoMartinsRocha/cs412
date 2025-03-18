@@ -1,0 +1,42 @@
+<!-- 
+ File: news_feed.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 03/18/2025
+ Description: html file that displays the news feed for a specific profile.
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+
+{% block content %}
+<h2 style="text-align: left;">{{profile.first_name}}'s news feed</h2>
+<!-- Display friend -->
+<a href="{% url 'show_profile' profile.pk %}"> <h4>Return to {{ profile.first_name }} <h4> </a>
+<article>
+    {% if profile.get_news_feed %}
+        <table>
+        {% for message in profile.get_news_feed %}
+
+            <tr>
+                <td>
+                <img src="{{message.profile.profile_image_url}}" alt="{{message.profile.profile_image_url}}" height="40" width="60" style="display: inline;">
+                <p>By {{message.profile.first_name}}</p> 
+                <strong>{{message.message}}</strong>
+                <p>Published at {{message.timestamp}}</p>
+                
+                <br>
+
+                <!-- Get images if they exist -->
+                {% for status_img in message.get_images %}
+                    <img src='{{status_img.image.image_file.url}}' alt='{{status_img.image.image_file.url}}' height="100" width="150" style="display: inline;">
+                {% endfor %}
+                <br>
+
+                </td>
+            </tr>
+
+        {% endfor %}
+        </table>
+        {% endif %}
+</article>
+
+{% endblock %}

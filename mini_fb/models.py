@@ -32,22 +32,22 @@ class Profile(models.Model):
         return messages
     def get_friends(self):
         '''Return all friends of this profile'''
-        id1 = Friend.objects.filter(profile1=self).values_list('profile2', flat=True)
-        id2 = Friend.objects.filter(profile2=self).values_list('profile1', flat=True)
-        friends1 = Profile.objects.filter(id__in=id1)
-        friends2 = Profile.objects.filter(id__in=id2)
+        id1 = Friend.objects.filter(profile1=self).values_list('profile2', flat=True) # returns list of primary keys for the profile2 column
+        id2 = Friend.objects.filter(profile2=self).values_list('profile1', flat=True) # returns list of primary keys for the profile1 column
+        friends1 = Profile.objects.filter(id__in=id1) # actually gets the profile objects
+        friends2 = Profile.objects.filter(id__in=id2) # actually gets the profile objects
 
-        return list(friends1) + list(friends2)
+        return list(friends1) + list(friends2) # concatenate them as lists and then return
     
     def get_friend_suggestions(self):
         '''Method to get freind suggestions for a profile'''
         suggestions = []
         friend_list = self.get_friends()
-        for friend in friend_list:
+        for friend in friend_list: # do a nested loop to check all the friends of your friends
             friends_of_friend = friend.get_friends()
         
             for ff in friends_of_friend:
-
+                # Have to make sure this friend of your friend isn't you or someone you're already freinds with or haven't added to the suggestions list above
                 if(self.pk != ff.pk and not Friend.objects.filter(profile1=self, profile2=ff).exists() and not Friend.objects.filter(profile1=ff, profile2=self).exists() and ff not in suggestions):
                     suggestions += [ff] 
 
@@ -55,17 +55,28 @@ class Profile(models.Model):
     
     def add_friend(self, other):
         '''Method to create and save a freind object'''
-
+        # Have to make sure the other profile isn't you or someone you're already friends with
         if(self.pk == other.pk):
             return 
         elif(Friend.objects.filter(profile1=self, profile2=other).exists() or Friend.objects.filter(profile1=other, profile2=self).exists()):
             return
-        # Check if friend pair already exists
+        
+        # make and save friend object
         new_freind = Friend()
         new_freind.profile1 = self
         new_freind.profile2 = other
 
         new_freind.save()
+
+    def get_news_feed(self):
+        '''Method to get news feed for a specific profile'''
+
+        # Get your friends and append yourself to that list
+        friends = self.get_friends()
+        friends.append(self)
+        
+        # Find all status messages that are related to a person in the friends list above, and order by the reverse of timestamp
+        return StatusMessage.objects.filter(profile__in=friends).order_by("-timestamp")
 
 class StatusMessage(models.Model):
     '''Encapsulates the idea of a Status message by some profile.'''
@@ -83,7 +94,7 @@ class StatusMessage(models.Model):
     
     def __str__(self):
         '''Return a string representation of this Article object.'''
-        return f'{self.message}'
+        return f'{self.message} by {self.profile.first_name}'
 
 class Image(models.Model):
     '''Encapsulates the idea of an Image related to some profile.'''
