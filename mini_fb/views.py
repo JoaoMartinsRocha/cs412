@@ -6,10 +6,11 @@
 
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from .models import *
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm
 from django.urls import reverse
+from django.shortcuts import redirect
 
 
 class ShowAllProfilesView(ListView):
@@ -24,6 +25,13 @@ class ShowProfilePageView(DetailView):
 
     model = Profile
     template_name = "mini_fb/show_profile.html"
+    context_object_name = "profile"
+
+class ShowFriendsSuggestionsView(DetailView):
+    '''Display a singe Profile'''
+
+    model = Profile
+    template_name = "mini_fb/friend_suggestions.html"
     context_object_name = "profile"
 
 class CreateProfileView(CreateView):
@@ -156,7 +164,30 @@ class UpdateStatusMessageView(UpdateView):
 
         return reverse('show_profile', kwargs={'pk': profile.pk})
     
+
+class AddFriendView(View):
+    '''This view handles creating a freind relationship between to profiles'''
+
+    def dispatch(self, request, *args, **kwargs):
+        pk = self.kwargs['pk']
+        pk_other = self.kwargs['other_pk']
+
+        p1 = Profile.objects.get(pk=pk)
+        p2 = Profile.objects.get(pk=pk_other)
+        p1.add_friend(p2)
+
+        return  super().dispatch(request, *args, **kwargs)
     
+    def get(self, request, *args, **kwargs):
+        """Handles GET requests"""
+        return redirect(self.get_success_url())
+        
+        
+    def get_success_url(self):
+
+        ## Find pk of profile
+        pk = self.kwargs['pk']
+        return reverse('show_profile', kwargs={'pk':pk})
 
     
     

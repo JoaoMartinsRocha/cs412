@@ -39,6 +39,33 @@ class Profile(models.Model):
 
         return list(friends1) + list(friends2)
     
+    def get_friend_suggestions(self):
+        '''Method to get freind suggestions for a profile'''
+        suggestions = []
+        friend_list = self.get_friends()
+        for friend in friend_list:
+            friends_of_friend = friend.get_friends()
+        
+            for ff in friends_of_friend:
+
+                if(self.pk != ff.pk and not Friend.objects.filter(profile1=self, profile2=ff).exists() and not Friend.objects.filter(profile1=ff, profile2=self).exists() and ff not in suggestions):
+                    suggestions += [ff] 
+
+        return suggestions
+    
+    def add_friend(self, other):
+        '''Method to create and save a freind object'''
+
+        if(self.pk == other.pk):
+            return 
+        elif(Friend.objects.filter(profile1=self, profile2=other).exists() or Friend.objects.filter(profile1=other, profile2=self).exists()):
+            return
+        # Check if friend pair already exists
+        new_freind = Friend()
+        new_freind.profile1 = self
+        new_freind.profile2 = other
+
+        new_freind.save()
 
 class StatusMessage(models.Model):
     '''Encapsulates the idea of a Status message by some profile.'''

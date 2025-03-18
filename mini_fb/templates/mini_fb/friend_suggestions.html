@@ -1,0 +1,31 @@
+<!-- 
+ File: friend_suggestion.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 03/18/2025
+ Description: html file that displays all friend suggestions of a profile .
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+
+{% block content %}
+<h2 style="text-align: left;">People {{profile.first_name}} may know: </h2>
+<!-- Display friend -->
+<article>
+    <table>
+    <tr>
+        
+        {% for friend in profile.get_friend_suggestions %}
+        <td>
+            <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add friend</a> 
+            <a href="{% url 'show_profile' friend.pk %}">
+                <img src="{{ friend.profile_image_url }}" alt="{{ friend.profile_image_url }}" height="100" width="150">
+            </a> 
+            <a href="{% url 'show_profile' friend.pk %}">{{ friend.first_name }}</a>
+        </td>
+        {% endfor %}
+    </tr>
+   </table>
+   <a href="{% url 'show_profile' profile.pk %}"> Return to {{ profile.first_name }}</a>
+</article>
+
+{% endblock %}
