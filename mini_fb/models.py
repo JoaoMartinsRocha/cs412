@@ -30,6 +30,14 @@ class Profile(models.Model):
         '''Return all of the comments about this article.'''
         messages = StatusMessage.objects.filter(profile=self)
         return messages
+    def get_friends(self):
+        '''Return all friends of this profile'''
+        id1 = Friend.objects.filter(profile1=self).values_list('profile2', flat=True)
+        id2 = Friend.objects.filter(profile2=self).values_list('profile1', flat=True)
+        friends1 = Profile.objects.filter(id__in=id1)
+        friends2 = Profile.objects.filter(id__in=id2)
+
+        return list(friends1) + list(friends2)
     
 
 class StatusMessage(models.Model):
@@ -63,6 +71,19 @@ class StatusImage(models.Model): # Models a reltionship set between Image and St
 
     image = models.ForeignKey("Image", on_delete=models.CASCADE) # foreign key
     status_message = models.ForeignKey("StatusMessage", on_delete=models.CASCADE) # foreign key
+
+class Friend(models.Model): # Models a reltionship set between Image and Status Message, Many to many
+
+    profile1 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name='profile1') # foreign key
+    profile2 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name='profile2') # foreign key
+    timestamp = models.DateTimeField(auto_now=True) # when it was created
+
+    def __str__(self):
+        '''Return a string representation of this Article object.'''
+        return f'{self.profile1.first_name} & {self.profile2.first_name}'
+
+
+
 
 
 
