@@ -11,6 +11,8 @@
 <h2 style="text-align: left;">People {{profile.first_name}} may know: </h2>
 <!-- Display friend -->
 <article>
+    
+    {% if profile.get_friend_suggestions %}
     <table>
     <tr>
         
@@ -25,6 +27,8 @@
         {% endfor %}
     </tr>
    </table>
+   {% endif %}
+
    <a href="{% url 'show_profile' profile.pk %}"> Return to {{ profile.first_name }}</a>
 </article>
 

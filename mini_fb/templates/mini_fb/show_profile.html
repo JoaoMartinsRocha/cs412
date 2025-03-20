@@ -42,6 +42,8 @@
 
     <article>
         <h2>{{profile.first_name}}'s friend</h2>
+
+        {% if profile.get_friends %}
         <table>
         <tr>
             {% for friend in profile.get_friends %}
@@ -54,6 +56,8 @@
             {% endfor %}
         </tr>
        </table>
+       {% endif %}
+       
        <a href="{% url 'show_friend_suggestions' profile.pk %}">See friend suggestions</a>
        <br>
        <a href="{% url 'show_news_feed' profile.pk %}">See news feed</a>
