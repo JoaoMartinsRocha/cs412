@@ -42,17 +42,7 @@ class ShowAllProfilesView(ListView):
 
     # might need to make a get context object data
 class CustomLoginRequiredMixin(LoginRequiredMixin):
-    
-    # def get_object(self):
-        
-    #     if self.request.user.is_authenticated:
-    #         logged_in_user = self.request.user
-    #         profile = Profile.objects.filter(user=logged_in_user)[0]
-    #     else:
-    #         profile = None
-        
-    #     return profile
-    
+    '''Custom mixin used by a view of the other classes. Created to reduce repetition of code '''
     
     def get_context_data(self):
         '''Return the dictionary of context variables for use in the template.'''
@@ -68,6 +58,8 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
         # add this article into the context dictionary:
         context['logged_profile'] = profile
         return context        
+    
+     
 
 
 class ShowProfilePageView(DetailView):
@@ -110,6 +102,7 @@ class ShowFriendsSuggestionsView(LoginRequiredMixin, DetailView):
         
         return profile
     
+
     def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
         context = super().get_context_data()
@@ -125,10 +118,12 @@ class ShowFriendsSuggestionsView(LoginRequiredMixin, DetailView):
         # context['profile'] = profile
         context['logged_profile'] = profile
         return context        
+    
+    def get_login_url(self):
+        '''return the URL required for login'''
+        return reverse('login')  
 
     
-
-
 
 class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     '''View for showing news feed'''
@@ -162,6 +157,10 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView):
         # context['profile'] = profile
         context['logged_profile'] = profile
         return context        
+    
+    def get_login_url(self):
+        '''return the URL required for login'''
+        return reverse('login')  
 
 
 class CreateProfileView(CreateView):
@@ -173,6 +172,34 @@ class CreateProfileView(CreateView):
     form_class = CreateProfileForm
     template_name = "mini_fb/create_profile_form.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = UserCreationForm()
+        context['user_form'] = form
+
+        return context
+    
+    def form_valid(self, form):
+        ''' Form valid class sets the django user created as the foriegn key field to the profile also created'''
+        
+		# instrument our code to display form fields: 
+        # print(f"CreateStatusMessageView.form_valid: form.cleaned_data={form.cleaned_data}")
+        # print(self.request.POST)
+        print(form.cleaned_data)
+
+        user_form = UserCreationForm(self.request.POST)
+
+        if user_form.is_valid():  # Validate the user form
+            user = user_form.save()  # Save and get the user object
+            form.instance.user = user
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
+        
+    def get_success_url(self):
+        return reverse('login')
+
+
 
 class CreateStatusMessageView(CustomLoginRequiredMixin, CreateView):
     '''A view to handle creation of a new Status Message.
@@ -182,6 +209,10 @@ class CreateStatusMessageView(CustomLoginRequiredMixin, CreateView):
 
     form_class = CreateStatusMessageForm
     template_name = "mini_fb/create_status_form.html"
+
+    def get_login_url(self):
+        '''return the URL required for login'''
+        return reverse('login') 
 
     def get_success_url(self):
         '''Return the URL to redirect to after successfully submitting form.'''
@@ -255,6 +286,10 @@ class UpdateProfileView(CustomLoginRequiredMixin, UpdateView):
     form_class = UpdateProfileForm 
     template_name = "mini_fb/update_profile_form.html"
 
+    def get_login_url(self):
+        '''return the URL required for login'''
+        return reverse('login') 
+
     def get_object(self):
         
         if self.request.user.is_authenticated:
@@ -271,6 +306,10 @@ class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     model = StatusMessage
     template_name = "mini_fb/delete_status_form.html"
     context_object_name = 'status_message'
+
+    def get_login_url(self):
+        '''return the URL required for login'''
+        return reverse('login') 
 
     def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
@@ -310,6 +349,10 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     model = StatusMessage
     form_class = UpdateStatusMessageForm 
     template_name = "mini_fb/update_status_form.html"
+    
+    def get_login_url(self):
+        '''return the URL required for login'''
+        return reverse('login') 
 
     def get_context_data(self, **kwargs):
         '''Return the dictionary of context variables for use in the template.'''
@@ -342,6 +385,10 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
 
 class AddFriendView(CustomLoginRequiredMixin, View):
     '''This view handles creating a freind relationship between to profiles'''
+
+    def get_login_url(self):
+        '''return the URL required for login'''
+        return reverse('login') 
 
     def dispatch(self, request, *args, **kwargs):
         # pk = self.kwargs['pk']
