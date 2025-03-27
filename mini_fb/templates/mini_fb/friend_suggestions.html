@@ -18,7 +18,7 @@
         
         {% for friend in profile.get_friend_suggestions %}
         <td>
-            <a href="{% url 'add_friend' profile.pk friend.pk %}"> Add friend</a> 
+            <a href="{% url 'add_friend' friend.pk %}"> Add friend</a> 
             <a href="{% url 'show_profile' friend.pk %}">
                 <img src="{{ friend.profile_image_url }}" alt="{{ friend.profile_image_url }}" height="100" width="150">
             </a> 

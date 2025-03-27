@@ -37,7 +37,10 @@
             </tr>
 
         </table>
-        <h4> <a href="{% url 'update_profile' profile.pk %}">Update this profile</a></h4>
+        {% if request.user.is_authenticated and request.user == profile.user %}
+        <h4> <a href="{% url 'update_profile' %}">Update this profile</a></h4>     
+        {% endif %}
+        
     </article>
 
     <article>
@@ -58,17 +61,21 @@
        </table>
        {% endif %}
        
-       <a href="{% url 'show_friend_suggestions' profile.pk %}">See friend suggestions</a>
+       {% if request.user.is_authenticated and request.user == profile.user %}
+       <a href="{% url 'show_friend_suggestions' %}">See friend suggestions</a>
        <br>
-       <a href="{% url 'show_news_feed' profile.pk %}">See news feed</a>
+       <a href="{% url 'show_news_feed' %}">See news feed</a>
+       {% endif %}
     </article>
 
     <article>
         <h2>Status Messages</h2>
 
+        {% if request.user.is_authenticated and request.user == profile.user %}
         <h3>
-            <a href="{% url 'create_status' profile.pk %}">Create a status message</a>
+            <a href="{% url 'create_status' %}">Create a status message</a>
         </h3>
+        {% endif %}
 
         {% if profile.get_all_status_messages %}
         <table>
@@ -86,9 +93,11 @@
                     <img src='{{status_img.image.image_file.url}}' alt='{{status_img.image.image_file.url}}' height="100" width="150" style="display: inline;">
                 {% endfor %}
                 <br>
+                {% if request.user.is_authenticated and request.user == profile.user %}
                 <a href="{% url 'update_status' message.pk %}">Update message</a>
                 <br>
                 <a href="{% url 'delete_status' message.pk %}">Delete message</a>
+                {% endif %}
 
                 </td>
             </tr>
