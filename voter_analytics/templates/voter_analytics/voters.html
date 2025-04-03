@@ -1,7 +1,7 @@
 <!-- 
  File: graphs.html
  Author: João Pedro Rocha (jprocha@bu.edu), 04/01/2025
- Description: html file containg the template for displaying all voters in the voter_analytics application. Also displays a search form to filter results, and is paginated.
+ Description: html file containg the template for displaying all voters in the voter_analytics application. Also displays a search form to filter results.
 -->
 {% extends 'voter_analytics/base.html' %}
 
@@ -19,7 +19,7 @@
         <ul class="pagination">
             {% if page_obj.has_previous %}
                 <li>
-                    <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+                    <span><a href="?page={{ page_obj.previous_page_number }}&{{ params.urlencode }}">Previous</a></span>
                 
                 </li>
             {% endif %}
@@ -28,7 +28,7 @@
                 </li>
             {% if page_obj.has_next %}
                 <li>
-                    <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+                    <span><a href="?page={{ page_obj.next_page_number }}&{{ params.urlencode }}">Next</a></span>
                 </li>
             {% endif %}
             </ul>

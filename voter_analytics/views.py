@@ -146,6 +146,21 @@ class VoterListView(ListView):
         
         # return filtered search results
         return search(self.request.GET, results)
+    
+    def get_context_data(self, **kwargs):
+        """Pass filtered query parameters to the template, this makes sure that when you switch pages on the template you still filter by the search."""
+        context = super().get_context_data(**kwargs)
+        
+        # Create a mutable copy of request.GET
+        params = self.request.GET.copy()
+        
+        # Remove 'page' if it exists
+        params.pop('page', None)
+        
+        # Add the cleaned parameters to the context
+        context['params'] = params
+        
+        return context
 
 
 def search(dictionary, results):
