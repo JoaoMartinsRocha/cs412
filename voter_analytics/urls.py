@@ -1,3 +1,7 @@
+# File: urls.py
+# Author: João Pedro Rocha (jprocha@bu.edu), 04/01/2025
+# Description: urls file for voter_analytics app, recieves http requests and routes them to correct function within views.py. Also handles routing for voters based on pk
+
 from django.urls import path
 from . import views 
 

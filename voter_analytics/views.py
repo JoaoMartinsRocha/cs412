@@ -1,3 +1,8 @@
+# File: views.py
+# Author: João Pedro Rocha (jprocha@bu.edu), 04/01/2025
+# Description: Views file for voter_analytics app, recieves http requests and responds with correct html template. 
+# Vews include showing all voter instances, showing a single voter instance, and one displaying graphs describing voter intsances
+
 from django.shortcuts import render
 
 from django.db.models.query import QuerySet
@@ -13,13 +18,14 @@ import plotly.graph_objs as go
 
 
 class VoterDetailView(DetailView):
-    '''View to show detail page for one result.'''
+    '''View to show detail page for one voter.'''
 
     template_name = 'voter_analytics/voter_detail.html'
     model = Voter
     context_object_name = 'v'
 
 class VoterGraphView(ListView):
+    '''Creates plorly graphs for the specified set of voters filtered by the search form'''
     template_name = 'voter_analytics/graphs.html'
     model = Voter
     context_object_name = 'voters'
@@ -27,29 +33,31 @@ class VoterGraphView(ListView):
 
     def get_context_data(self, **kwargs) :
         '''
-        Provide context variables for use in template
+        Provide context variables for use in template, in this case, the graphs in form of divs
         '''
-        print(self.request.path)
+        
         # start with superclass context
         context = super().get_context_data(**kwargs)
         voters = context['voters']
 
-        voters = search(self.request.GET, voters) # filter based on search
+        voters = search(self.request.GET, voters) # filter based on search form
 
+        # Grab min year or max year in search
         if 'min_dob_year' in self.request.GET:
             min_year = self.request.GET['min_dob_year']
         else:
-            min_year = '1920'
+            min_year = '1920' # default is 1920
         
         if 'max_dob_year' in self.request.GET:
             max_year = self.request.GET['max_dob_year']
         else:
-            max_year = '2004'
+            max_year = '2004'# feault is 2004
 
         
         lables = [] # all years present
         values = [] # number of voters with a  specific dob
 
+        # for loop populates values
         for i in range(int(min_year), int(max_year) + 1):
             min_date_format = date(i, 1, 1)
             max_date_format = date(i + 1, 1, 1)
@@ -59,7 +67,7 @@ class VoterGraphView(ListView):
             values += [len(query)] 
 
 
-        # create graph of first half/second half as pie chart:
+        # create histogram of distribution by birth year:
         
         fig = go.Bar(x=lables, y=values)
         title_text = f"Voter distribution by year of birth (n={len(voters)})"
@@ -75,12 +83,13 @@ class VoterGraphView(ListView):
         lables = [] # all possible party affiliations
         values = [] # number of voters with in that party
 
-        unique_values = voters.values('party_affiliation').distinct()
+        unique_values = voters.values('party_affiliation').distinct() # Get unique values in search results
 
-        for item in unique_values:
+        for item in unique_values: # loop through them and count the number of values using len()
             lables += [item['party_affiliation']]
             values += [len(voters.filter(party_affiliation=item['party_affiliation']))] # Access the value using the dictionary key
 
+        # create figure
         fig = go.Pie(labels=lables, values=values)
 
         title_text = f"Voter distribution by party affiliation (n={len(voters)})"
@@ -97,6 +106,7 @@ class VoterGraphView(ListView):
        
         # Make second histogram
         lables = ["v20state", "v21town", "v21primary", "v22general", "v23town"] # all elections
+        # Just filter by if they voted in that election or not
         values = [
             len(voters.filter(v20state=True)),
             len(voters.filter(v21town=True)),
@@ -105,7 +115,7 @@ class VoterGraphView(ListView):
             len(voters.filter(v23town=True))
         ] # number of voters with a  specific dob
 
-        # create graph of first half/second half as pie chart:
+        # create figure
         
         fig = go.Bar(x=lables, y=values)
         title_text = f"Vote count by election (n={len(voters)})"
@@ -122,7 +132,7 @@ class VoterGraphView(ListView):
 
 
 class VoterListView(ListView):
-    '''View to display voters '''
+    '''View to display all voters '''
 
     template_name = 'voter_analytics/voters.html'
     model = Voter
@@ -133,12 +143,13 @@ class VoterListView(ListView):
         
         # start with entire queryset
         results = super().get_queryset().order_by('first_name', 'last_name')
-           
+        
+        # return filtered search results
         return search(self.request.GET, results)
 
 
 def search(dictionary, results):
-        '''Method filters the query set contained in results based on the fields contained in the dictionary variable'''
+        '''Method filters the query set contained in results based on the fields contained in the dictionary variable which is passed in as self.request.GET'''
         
         if 'party_affiliation' in dictionary:
             party = dictionary['party_affiliation']

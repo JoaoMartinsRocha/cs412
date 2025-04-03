@@ -1,3 +1,8 @@
+# File: models.py
+# Author: João Pedro Rocha (jprocha@bu.edu), 04/01/2025
+# Description: models file used to define and create the voter model in the mini_fb application 
+
+
 from django.db import models
 # from .models import Result
 
@@ -8,9 +13,7 @@ from urllib.parse import urlencode
 
 class Voter(models.Model):
     '''
-    Store/represent the data from one runner at the Chicago Marathon 2023.
-    BIB,First Name,Last Name,CTZ,City,State,Gender,Division,
-    Place Overall,Place Gender,Place Division,Start TOD,Finish TOD,Finish,HALF1,HALF2
+    Store/represent the data from one voter.
     '''
     # identification
     last_name = models.TextField()
@@ -42,20 +45,8 @@ class Voter(models.Model):
         '''Return a string representation of this model instance.'''
         return f'{self.first_name} {self.last_name} ({self.party_affiliation}'
     
-    # def get_runners_passed(self):
-    #     '''Return the number of runners passed by this runner.'''
-    #     started_first = Result.objects.filter(start_time_of_day__lt=self.start_time_of_day)
-    #     passed = started_first.filter(finish_time_of_day__gt=self.finish_time_of_day)
-
-    #     return len(passed)
-        
-    # def get_runners_passed_by(self):
-    #     '''Return the number of runners who passed this runner.'''
-    #     started_later = Result.objects.filter(start_time_of_day__gt=self.start_time_of_day)
-    #     passed_by = started_later.filter(finish_time_of_day__lt=self.finish_time_of_day)
-
-    #     return len(passed_by)
     def full_address(self):
+        '''Function creates full address for the voter'''
         parts = [str(self.street_number), self.street_name]
         if self.apartment_number:
             parts.append(f"Apt {self.apartment_number}")
@@ -63,6 +54,7 @@ class Voter(models.Model):
         return " ".join(parts)
 
     def google_maps_link(self):
+        '''Function creates google maps link based on voter's address'''
         query = urlencode({"query": self.full_address()})
         return f"https://www.google.com/maps/search/?api=1&{query}"
 
@@ -78,16 +70,8 @@ class Voter(models.Model):
         f.readline() # discard headers
 
         for line in f:
-            # line = f.readline().strip()
             
             fields = line.split(',')
-            # show which value in each field
-
-            # print(f'fields={fields}')
-            
-            # for i in range(len(fields)):
-            
-            #     print(f'fields[{i}] = {fields[i]}')
 
             try:
                 result = Voter(last_name=fields[1],
@@ -112,7 +96,7 @@ class Voter(models.Model):
 
             
                 result.save() # commit to database
-                # print(f'Created result: {result}')
+                
             except Exception as e:
                 print(f"Skipped: {e}")
 
@@ -120,6 +104,7 @@ class Voter(models.Model):
 
 
 def string_to_bool(s):
+    '''Converts string boolean to boolean'''
     s = s.lower()
     if s == "true":
         return True
