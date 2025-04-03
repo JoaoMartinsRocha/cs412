@@ -1,6 +1,8 @@
 from django.db import models
 # from .models import Result
 
+from urllib.parse import urlencode
+
 
 # Create your models here.
 
@@ -53,6 +55,16 @@ class Voter(models.Model):
     #     passed_by = started_later.filter(finish_time_of_day__lt=self.finish_time_of_day)
 
     #     return len(passed_by)
+    def full_address(self):
+        parts = [str(self.street_number), self.street_name]
+        if self.apartment_number:
+            parts.append(f"Apt {self.apartment_number}")
+        parts.append(self.zip_code)
+        return " ".join(parts)
+
+    def google_maps_link(self):
+        query = urlencode({"query": self.full_address()})
+        return f"https://www.google.com/maps/search/?api=1&{query}"
 
     
     def load_data():

@@ -1,0 +1,36 @@
+<!-- templates/marathon_analytics/result_detail.html -->
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<main>
+    <h1>Graphs</h1>
+    <div>
+        {% include "voter_analytics/search.html" %}    
+    </div>
+    <br>
+    <div>
+        <div>
+            <!-- safe: render the HTML rather than display the HTML as text -->
+            {{graph_div_age_dist|safe}} 
+        </div>
+    </div>
+    <br>
+    <div>
+        <div>
+            <!-- safe: render the HTML rather than display the HTML as text -->
+            {{graph_div_party|safe}} 
+        </div>
+    </div>
+    <br>
+    <div>
+        <div>
+            <!-- safe: render the HTML rather than display the HTML as text -->
+            {{graph_div_election|safe}} 
+        </div>
+    </div>
+    
+</main>
+
+
+{% endblock %}

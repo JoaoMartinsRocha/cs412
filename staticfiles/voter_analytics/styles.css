@@ -1,0 +1,61 @@
+/* 
+ File: styles.css
+ Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
+ Description: css file containing all the stylying for the mini_fb application.
+ */
+
+ html {
+    background: rgb(55, 50, 50);
+}
+
+table, th, td {
+    border:1px solid beige;
+    color: beige;
+    text-align: center;
+  }
+
+p, h1 {
+    color: beige;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h2, h3 {
+    color: beige;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+nav ul {
+    list-style: none;        /* Removes the bullets */
+    padding: 0;              
+    margin: 0;              
+    display: flex;         /*  Displays items horizontally */  
+}
+
+
+nav ul li a {
+    text-decoration: none;   /* Removes underline from links */
+    color: beige;     
+    font-weight: bold;       
+    padding: 10px 15px;      
+}
+
+a {
+    text-decoration: none !important;
+    color: beige !important;
+}
+
+img {
+    display: block;
+}
+
+main{
+    display: grid;
+    place-items: center;     /* Centers both horizontally and vertically */         
+    text-align: center;
+}
+
+label {
+    color: lightgoldenrodyellow;
+}
