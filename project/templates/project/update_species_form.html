@@ -1,0 +1,32 @@
+<!-- 
+ File: update_species_form.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/19/2025
+ Description: html file containing the the template for the form that updates a species.
+-->
+
+{% extends 'project/base.html' %}
+
+
+{% block content %}
+<h2>Update this Pokemon Species</h2>
+<div class="form-container">
+    
+    <form action="{% url 'update_species' pokemon_species.pk %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <table>
+            {{form.as_table}}
+        </table>
+    
+    <div class="button-row">
+        <input type="submit" name="submit" value="Update" class="form-button">
+        
+    </form>
+        <!-- Cancel button -->
+        <form action="{% url 'show_species' pokemon_species.pk %}" method="GET">
+            <input type="submit" value="Cancel" class="form-button">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

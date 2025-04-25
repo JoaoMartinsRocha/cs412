@@ -1,0 +1,47 @@
+<!-- 
+ File: show_all_speciesToCatch.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/23/2025
+ Description: html file containg the page that displays all of the species that have currently been created in the project, this also allows the specific trainer you reached this page from to catch this pokemon.
+-->
+
+
+{% extends 'project/base.html' %}
+
+
+
+{% block content %}
+<h2>Catch a pokemon and add it to your Team!</h2>
+<h4><a href="{% url 'show_trainer' t.pk %}">Back to {{t.first_name}}</a></h4>
+<main class="grid-container">
+
+    <table>
+        <tr>
+            <th> </th>
+            <th>Name </th>
+            <th>Type 1</th>
+            <th>Type 2</th>
+            <th>Catch </th>
+        </tr>
+    {% for s in species %}
+     
+        <tr>
+            <td>
+                {% if s.pokemon_image_url %}
+                
+                    <img src="{{s.pokemon_image_url}}" alt="{{s.pokemon_image_url}}" style="max-height: 150px;">
+                
+                {% endif %}
+            </td>
+
+            <td> <a href="{% url 'show_species' s.pk %}">{{s.name}} </a></td>
+            <td>{{ s.get_type1_display }}</td>
+            <td>{{ s.get_type2_display }}</td>
+            <td><a href="{% url 'create_caught' t.pk s.pk %}"> Catch! </a></td>
+
+        </tr>
+ 
+    {% endfor %}
+    </table>
+
+</main>
+{% endblock %}

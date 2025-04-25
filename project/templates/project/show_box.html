@@ -1,0 +1,53 @@
+<!-- 
+ File: show_box.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/19/2025
+ Description: html file containg the page that displays the pc box for a specific trainer.
+-->
+
+
+{% extends 'project/base.html' %}
+
+
+
+{% block content %}
+<h2>PC box for <a href="{% url 'show_trainer' trainer.pk %}"> {{trainer.first_name}} </a></h2>
+
+<h4>Filter box</h4>
+<div class="form-container">
+    {% include "project/filter_box.html" %}    
+</div>
+
+<h4>Pokemon</h4>
+<main class="grid-container pc-box">
+
+            {% for caught in box_pokemon %}
+                    <div class="pokemon-card">
+                        {% if caught.species.pokemon_image_url %}
+                            <img src="{{ caught.species.pokemon_image_url }}" alt="{{ caught.species.name }}">
+                        {% endif %}
+                        <h3>{{ caught.species.name }}</h3>
+                        <p><strong>Nickname:</strong> <a href="{% url 'show_caught' caught.pk %}"> {{ caught.nickname }} </a> </p>
+                        <p><strong>Level:</strong> {{ caught.level }}</p>
+                    </div>   
+            {% empty %}
+                <div class="pokemon-card">
+                    <p> This trainer hasn't caught any Pokemon yet or they're all in their team. </p>  
+                </div>  
+            {% endfor %}
+
+</main>
+
+<h4> Info Summary </h4>
+<div class="plot-row">
+    <div class="plot-container">
+        {{graph_div_level_dist|safe}} 
+    </div>
+    <div class="plot-container">
+        {{graph_div_avg_stat |safe}} 
+    </div>
+    <div class="plot-container">
+        {{graph_div_type |safe}} 
+    </div>
+</div>
+
+{% endblock %}

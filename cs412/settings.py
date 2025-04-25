@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "blog", # Example 5
     "mini_fb", # a5 
     "marathon_analytics",
-    "voter_analytics"
+    "voter_analytics",
+    "project" # Final project
 ]
 
 MIDDLEWARE = [

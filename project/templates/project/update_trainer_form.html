@@ -1,0 +1,34 @@
+<!-- 
+ File: update_tariner_form.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/19/2025
+ Description: html file containing the the template for the form that updates a trainer.
+-->
+
+{% extends 'project/base.html' %}
+
+<!-- scriptlet code to display the value of the variable `articles` 
+{{ articles }}
+-->
+{% block content %}
+<h2>Update this Trainer</h2>
+<div class="form-container">
+    <!-- Display html form -->
+    <form action="{% url 'update_trainer' trainer.pk %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <table>
+            {{form.as_table}}
+        </table>
+    
+    <div class="button-row">
+        <input type="submit" name="submit" value="Update" class="form-button">
+        
+    </form>
+        <!-- Cancel button -->
+        <form action="{% url 'show_trainer' trainer.pk %}" method="GET">
+            <input type="submit" value="Cancel" class="form-button">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

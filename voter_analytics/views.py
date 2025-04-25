@@ -84,6 +84,7 @@ class VoterGraphView(ListView):
         values = [] # number of voters with in that party
 
         unique_values = voters.values('party_affiliation').distinct() # Get unique values in search results
+        
 
         for item in unique_values: # loop through them and count the number of values using len()
             lables += [item['party_affiliation']]

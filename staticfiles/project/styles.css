@@ -1,0 +1,306 @@
+/* 
+ File: styles.css
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/17/2025
+ Description: css file containing all the stylying for the project application.
+ */
+
+
+body {
+    font-family: Verdana;
+    background-color: #f2f7fc;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #ef5350;
+    color: white;
+    padding: 1rem 2rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
+    display: flex;
+    gap: 1rem;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 2rem;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+}
+
+/* tr:hover {
+    background-color: #f0f8ff;
+} */
+
+/* anchor tags are red to match pokemon colors */
+a {
+    color: #d62828;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+/* When you hover over them it turns gold, and adds a shadow */
+a:hover {
+    color: #fcbf49;
+    text-shadow: 0 0 3px #222;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #444;
+}
+
+h4 {
+    text-align: center;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.detail-header {
+    text-align: center;
+}
+
+.detail-header img {
+    max-height: 200px;
+    margin-bottom: 1rem;
+}
+
+.detail-header h2 {
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.species-info {
+    margin-top: 2rem;
+}
+
+.info-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.info-row span {
+    background-color: #eee;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.info-row span img {
+    max-height: 80px;
+    margin-bottom: 1rem;
+}
+
+.stats-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+}
+
+.stats-grid div {
+    white-space: nowrap;
+}
+
+
+.other-model-info {
+    display: flex;
+    gap: 1rem;
+}
+
+.other-model-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f3f3;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    width: 120px;
+}
+
+.other-model-card img {
+    max-height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+.other-model-card {
+    width: 200px; /* or more if needed */
+}
+
+.pc-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.pokemon-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    background-color: #f9f9f9;
+    transition: transform 0.2s ease;
+}
+
+.pokemon-card:hover {
+    transform: scale(1.03);
+}
+
+.pokemon-card img {
+    max-height: 120px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+/* Form styles */
+
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+}
+
+form table {
+    width: 100%;
+}
+
+form td {
+    padding: 0.5rem 0.5rem;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="url"],
+form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+
+/* Fixing buttons */
+.button-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+
+.button-row form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.form-button {
+    padding: 0.6rem 1.5rem;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.form-button:hover {
+    background-color: #ffb300;
+}
+
+/* Plot styles */
+
+.plot-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap; /* so they stack on small screens */
+}
+
+.plot-container {
+    flex: 1 1 30%; /* Grow/shrink and aim for ~30% width */
+    max-width: 32%;
+    min-width: 300px;
+    margin: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* use > only for direct children */
+.plot-container > div {
+    width: 100% !important;
+    height: auto !important;
+}

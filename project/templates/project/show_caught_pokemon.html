@@ -1,0 +1,66 @@
+<!-- 
+ File: show_caught_pokemon.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/17/2025
+ Description: html file containg the page that displays a single pokemon that has been caught by a trainer
+-->
+
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<main class="detail-container">
+    <div class="detail-header">
+        {% if pokemon.species.pokemon_image_url %}
+            <img src="{{ pokemon.species.pokemon_image_url }}" alt="{{ pokemon.species.name }}">
+        {% endif %}
+        <h2>{{ pokemon.nickname }} caught by {{pokemon.trainer.first_name}}</h2>
+        <h3>
+            {% if pokemon.in_team %}
+                <a href="{% url 'show_trainer' pokemon.trainer.pk %}"> In team already </a>
+            {% elif not pokemon.trainer.is_team_full %}
+                <form action="{% url 'toggle_in_team' pokemon.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="form-button">Add to team</button>
+                </form>
+            {% else %}
+                <a href="{% url 'show_trainer' pokemon.trainer.pk %}"> Team is full</a>
+            {% endif %}
+        </h3>
+    </div>
+
+    <section class="detail-info">
+        <h3>Species & Current Level</h3>
+        <div class="info-row">
+            <span> <a href="{% url 'show_species' pokemon.species.pk %}">{{ pokemon.species.name}} </a> </span>
+            <span>{{ pokemon.level}}</span>
+        </div>
+
+        <h3>Types</h3>
+        <div class="info-row">
+            <span>{{ pokemon.species.get_type1_display }}</span>
+            {% if pokemon.species.type2 %}
+                <span>{{ pokemon.species.get_type2_display }}</span>
+            {% endif %}
+        </div>
+
+        <h3>Moves</h3>
+        <div class="info-row">
+            <span>{{ pokemon.species.move1 }}</span>
+            <span>{{ pokemon.species.move2 }}</span>
+            <span>{{ pokemon.species.move3 }}</span>
+            <span>{{ pokemon.species.move4 }}</span>
+        </div>
+
+        <h3>Current Stats</h3>
+        <div class="stats-grid">
+            <div><strong>HP:</strong> {{ pokemon.hit_points }}</div>
+            <div><strong>Attack:</strong> {{ pokemon.attack }}</div>
+            <div><strong>Defense:</strong> {{ pokemon.defense }}</div>
+            <div><strong>Special:</strong> {{ pokemon.special }}</div>
+            <div><strong>Speed:</strong> {{ pokemon.speed }}</div>
+            <div><strong>Accuracy:</strong> {{ pokemon.accuracy }}</div>
+            <div><strong>Evasiveness:</strong> {{ pokemon.evasiveness }}</div>
+        </div>
+    </section>
+</main>
+{% endblock %}

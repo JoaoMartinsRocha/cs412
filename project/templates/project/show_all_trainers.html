@@ -1,0 +1,42 @@
+<!-- 
+ File: show_all_trainers.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 02/18/2025
+ Description: html file containg the page that displays all of the moves that have currently been created in the project.
+-->
+
+
+{% extends 'project/base.html' %}
+
+
+{% block content %}
+<h2>All Current Trainers</h2>
+<h4><a href="{% url 'create_trainer' %}">Create Trainer</a></h4>
+<main class="grid-container">
+
+    <table>
+        <tr>
+            <th> </th>
+            <th>Name </th>
+            <th>Region</th>
+            <th>Town</th>
+        </tr>
+    {% for t in trainers %}
+        <tr>
+            <td>
+                {% if t.trainer_image_url %}
+                
+                    <img src="{{t.trainer_image_url}}" alt="{{t.trainer_image_url}}" style="max-height: 150px;">
+                
+                {% endif %}
+            </td>
+
+            <td><a href="{% url 'show_trainer' t.pk %}"> {{t.first_name}} {{t.last_name}} </a></td>
+            <td>{{ t.pokemon_region }}</td>
+            <td>{{ t.pokemon_town }}</td>
+
+        </tr>
+    {% endfor %}
+    </table>
+
+</main>
+{% endblock %}

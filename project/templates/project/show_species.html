@@ -1,0 +1,49 @@
+<!-- 
+ File: show_species.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/17/2025
+ Description:  html file containg the page that displays a single pokemon species
+-->
+
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<main class="detail-container">
+    <div class="detail-header">
+        {% if species.pokemon_image_url %}
+            <img src="{{ species.pokemon_image_url }}" alt="{{ species.name }}">
+        {% endif %}
+        <h2>{{ species.name }}</h2>
+        <h4><a href="{% url 'update_species' species.pk %}">Update Species</a></h4>
+    </div>
+
+    <section class="detail-info">
+        <h3>Types</h3>
+        <div class="info-row">
+            <span>{{ species.get_type1_display }}</span>
+            {% if species.type2 %}
+                <span>{{ species.get_type2_display }}</span>
+            {% endif %}
+        </div>
+
+        <h3>Moves</h3>
+        <div class="info-row">
+            <span>{{ species.move1 }}</span>
+            <span>{{ species.move2 }}</span>
+            <span>{{ species.move3 }}</span>
+            <span>{{ species.move4 }}</span>
+        </div>
+
+        <h3>Base Stats</h3>
+        <div class="stats-grid">
+            <div><strong>HP:</strong> {{ species.hit_points }}</div>
+            <div><strong>Attack:</strong> {{ species.attack }}</div>
+            <div><strong>Defense:</strong> {{ species.defense }}</div>
+            <div><strong>Special:</strong> {{ species.special }}</div>
+            <div><strong>Speed:</strong> {{ species.speed }}</div>
+            <div><strong>Accuracy:</strong> {{ species.accuracy }}</div>
+            <div><strong>Evasiveness:</strong> {{ species.evasiveness }}</div>
+        </div>
+    </section>
+</main>
+{% endblock %}

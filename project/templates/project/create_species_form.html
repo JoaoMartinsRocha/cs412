@@ -1,0 +1,30 @@
+<!-- 
+ File: create_species_form.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/19/2025
+ Description: html file that displays a form to create a new species.
+-->
+
+{% extends 'project/base.html' %}
+
+
+{% block content %}
+<h2>Create a new Pokemon species</h2>
+
+
+<div class="form-container">
+    <form action="{% url 'create_species' %}" method="POST">
+        {% csrf_token %}
+        
+        <table>
+        {{form.as_table}}
+        </table>
+
+        <div class="button-row">
+            <input type="submit" name="submit" value="Submit" class="form-button">
+    </form>
+        <form action="{% url 'show_all_species' %}" method="GET">
+            <input type="submit" value="Cancel" class="form-button">
+        </form>
+    </div>
+</div>
+{% endblock %}

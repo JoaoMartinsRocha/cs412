@@ -1,0 +1,45 @@
+<!-- 
+ File: show_all_species.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/17/2025
+ Description: html file containg the page that displays all of the species that have currently been created in the project.
+-->
+
+
+{% extends 'project/base.html' %}
+
+
+
+{% block content %}
+<h2>All Pokemon Species</h2>
+<h4><a href="{% url 'create_species' %}">Create Pokemon Species</a></h4>
+<main class="grid-container">
+
+    <table>
+        <tr>
+            <th> </th>
+            <th>Name </th>
+            <th>Type 1</th>
+            <th>Type 2</th>
+        </tr>
+    {% for s in species %}
+     
+        <tr>
+            <td>
+                {% if s.pokemon_image_url %}
+                
+                    <img src="{{s.pokemon_image_url}}" alt="{{s.pokemon_image_url}}" style="max-height: 150px;">
+                
+                {% endif %}
+            </td>
+
+            <td> <a href="{% url 'show_species' s.pk %}">{{s.name}} </a></td>
+            <td>{{ s.get_type1_display }}</td>
+            <td>{{ s.get_type2_display }}</td>
+
+        </tr>
+ 
+    {% endfor %}
+    </table>
+
+</main>
+{% endblock %}

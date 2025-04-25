@@ -1,0 +1,34 @@
+<!-- 
+ File: base.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/18/2025
+ Description: html file containg the the base template for the project application. Contains header for the page and navigation.
+-->
+{% load static %}
+<html>
+    <head>
+        <title>Pokemon Creator</title>
+        <link rel="stylesheet" href="{% static 'project/styles.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1>Pokemon Creator</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'show_all_species' %}">All Species</a></li>
+                    <li><a href="{% url 'show_all_trainers' %}">All Trainers</a></li>
+                    <li><a href="{% url 'show_all_moves' %}">All Moves</a></li>
+                </ul>
+                <hr>
+                <!-- % if request.user.is_authenticated %
+                Logged in user: {{ request.user }}.
+                % else %
+                Not logged in.
+                % endif % -->
+            </nav>
+        </header>
+    
+    {% block content %}
+    {% endblock %}    
+  
+    </body>
+</html>

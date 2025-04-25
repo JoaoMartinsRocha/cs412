@@ -1,0 +1,68 @@
+<!-- 
+ File: show_trainer.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/17/2025
+ Description:  html file containg the page that displays a single trainer's page
+-->
+
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<main class="detail-container">
+    <div class="detail-header">
+        {% if trainer.trainer_image_url %}
+            <img src="{{ trainer.trainer_image_url }}" alt="{{ trainer.first_name }}">
+        {% endif %}
+        <h2>{{ trainer.first_name }} {{trainer.last_name}}</h2>
+        <h3><a href="{% url 'show_box' trainer.pk %}"> PC box </a></h3>
+        <h3><a href="{% url 'update_trainer' trainer.pk %}">Update Trainer</a></h3>
+        <h3><a href="{% url 'catch' trainer.pk %}"> Catch a Pokemon! </a></h3>
+    </div>
+    <section class="detail-info">
+        <h3>Region & Town</h3>
+        <div class="info-row">
+            <span>{{ trainer.pokemon_region }}</span>
+            
+            <span>{{ trainer.pokemon_town }}</span>
+        </div>
+
+        <h3>Rival</h3>
+        {% if trainer.rival %}
+        <div class="info-row other-model-info">
+            <div class="other-model-card">
+                {% if trainer.rival.trainer_image_url %}
+                    <img src="{{ trainer.rival.trainer_image_url }}" alt="{{ trainer.rival.first_name }}">
+                {% endif %}
+                <span><a href="{% url 'show_trainer' trainer.rival.pk %}"> {{ trainer.rival.first_name }} </a></span>
+            </div>
+        </div>
+        {% endif %}
+    
+        <h3> Current Team </h3>
+        <div class="info-row other-model-info">
+            {% if team %}
+                {% for p in team %}
+                    <div class="other-model-card">
+                        {% if p.species.pokemon_image_url %}
+                            <img src="{{ p.species.pokemon_image_url }}" alt="{{ p.species.name }}">
+                        {% endif %}
+                        <span><a href="{% url 'show_caught' p.pk %}">{{ p.nickname }}</a></span>
+                        
+                        <form action="{% url 'toggle_in_team' p.pk %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="form-button">Send to pc</button>
+                        </form> 
+                    </div>
+                {% endfor %}
+            {% else %}
+                <span> Team is currently empty</span>
+            {% endif %}
+        </div>
+    </section>
+</main>
+
+<!-- Add catch pokemon functionality, will take you to a special list view of all pokemon where you can click catch, and it'll catch them (add to box and create a has caught object) -->
+<!-- Add page that shows a trainers stats, that's where you'll implment graphs and filtering -->
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+<!-- 
+ File: show_move_description.html
+ Author: João Pedro Rocha (jprocha@bu.edu), 04/22/2025
+ Description: html file containg the move description of a move.
+-->
+
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<main class="detail-container">
+    <div class="detail-header">
+        <h2>{{ move.name }}</h2>
+        <h3>{{ move.description }}</h3>
+    </div>
+    <section class="detail-info">
+        <div class="button-row">
+            <form action="{% url 'show_all_moves' %}" method="GET">
+                <input type="submit" value="Return" class="form-button">
+            </form>
+        </div>
+    </section>
+</main>
+
+{% endblock %}
