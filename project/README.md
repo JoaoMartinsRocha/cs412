@@ -1,0 +1,1 @@
+One feature I forgot to mention on the video was that my app makes sure you can only have a maximum of 6 pokemon in your team at once, so if you try adding a pokemon to your team either when catching it or in your box it'll tell you your team is full. You'll have to add some to your box before you can add to team
